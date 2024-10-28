@@ -20,8 +20,8 @@ export class PerfilRepository {
     return this.perfilModel.find().exec();
   }
 
-  async findById(id: string): Promise<PerfilI> {
-    return this.perfilModel.findById(id).exec();
+  async findOneByEmail(email: string): Promise<PerfilI> {
+    return this.perfilModel.findOne({ email });
   }
 
   async delete(id: string): Promise<PerfilI> {

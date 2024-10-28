@@ -12,7 +12,4 @@ export class CreatePerfilDto {
   @IsNotEmpty()
   @IsString()
   readonly password: string;
-
-  @IsString()
-  readonly rol: string;
 }

@@ -16,4 +16,7 @@ export class PerfilService {
   async getAllPerfils(): Promise<PerfilI[]> {
     return this.perfilRepository.findAll();
   }
+  async findOneByEmail(email: string): Promise<PerfilI> {
+    return await this.perfilRepository.findOneByEmail(email);
+  }
 }
