@@ -4,14 +4,17 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { RegisterDto } from 'src/database/dto/register.dto';
-
+import { JwtService } from '@nestjs/jwt';
 import * as bcryptjs from 'bcryptjs';
 import { PerfilService } from 'src/modules/products/perfil/service/perfil.service';
 import { LoginDto } from 'src/database/dto/login.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly perfilService: PerfilService) {}
+  constructor(
+    private readonly perfilService: PerfilService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async register({ password, email, name }: RegisterDto) {
     const user = await this.perfilService.findOneByEmail(email);
@@ -46,7 +49,12 @@ export class AuthService {
       throw new UnauthorizedException('Invalid password');
     }
 
+    const payload = { email: user.email };
+
+    const token = await this.jwtService.signAsync(payload);
+
     return {
+      token: token,
       email: user.email,
     };
   }
