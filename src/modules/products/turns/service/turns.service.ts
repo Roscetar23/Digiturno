@@ -1,11 +1,13 @@
 import { RadicationTurnsRepository } from 'src/database/repository/turnsRadication.repository';
 import { ValidationTurnsRepository } from 'src/database/repository/turnsValidation.repository';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ITurno } from 'src/database/interface/turns.interface';
 import { CreateTurnDto } from 'src/database/dto/turns.dto';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class TurnsService {
+  private readonly logger = new Logger(TurnsService.name);
   constructor(
     private readonly turnsRadicationRepository: RadicationTurnsRepository,
     private readonly TurnsValidationRepository: ValidationTurnsRepository,
@@ -26,5 +28,16 @@ export class TurnsService {
 
   async getAllValidationTurns(): Promise<ITurno[]> {
     return this.TurnsValidationRepository.findAll();
+  }
+
+  @Cron('0 21 * * *')
+  async deleteAllTurns() {
+    this.logger.debug('Eliminando los turnos a las 2 am');
+
+    await this.turnsRadicationRepository.deleteAll();
+    this.logger.debug('Turnos de radicación eliminados');
+
+    await this.TurnsValidationRepository.deleteAll();
+    this.logger.debug('Turnos de validación eliminados');
   }
 }

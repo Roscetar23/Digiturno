@@ -20,4 +20,8 @@ export class RadicationTurnsRepository {
   async findAll(): Promise<ITurno[]> {
     return this.radicationTurnsModel.find().exec();
   }
+
+  async deleteAll(): Promise<void> {
+    await this.radicationTurnsModel.deleteMany({});
+  }
 }

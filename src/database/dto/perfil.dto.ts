@@ -1,4 +1,12 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+  IsEnum,
+} from 'class-validator';
+
+import { Role } from 'src/constants/enumRole.constants';
 
 export class CreatePerfilDto {
   @IsNotEmpty()

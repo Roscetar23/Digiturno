@@ -20,4 +20,7 @@ export class ValidationTurnsRepository {
   async findAll(): Promise<ITurno[]> {
     return this.validationturnsModel.find().exec();
   }
+  async deleteAll(): Promise<void> {
+    await this.validationturnsModel.deleteMany({});
+  }
 }

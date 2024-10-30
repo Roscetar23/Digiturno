@@ -1,0 +1,5 @@
+export enum Role {
+  VALIDACION = 'validacion',
+  RADICACION = 'radicacion',
+  AMBOS = 'ambos',
+}

@@ -20,6 +20,7 @@ import {
   Validation,
   ValidacionTurnoSchema,
 } from 'src/database/schema/turnsValidation.schema';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import {
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '1d' },
     }),
+    ScheduleModule.forRoot(),
   ],
   controllers: [PerfilController, AuthController, TurnsController],
   providers: [

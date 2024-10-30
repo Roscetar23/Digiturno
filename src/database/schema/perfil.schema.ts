@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Role } from 'src/constants/enumRole.constants';
 
 export type PerfilDocument = Perfil & Document;
 
@@ -13,9 +14,6 @@ export class Perfil {
 
   @Prop({ required: true })
   password: string;
-
-  @Prop({ default: 'user' })
-  rol: string;
 }
 
 export const PerfilSchema = SchemaFactory.createForClass(Perfil);
