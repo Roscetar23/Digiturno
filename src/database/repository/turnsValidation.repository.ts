@@ -23,4 +23,7 @@ export class ValidationTurnsRepository {
   async deleteAll(): Promise<void> {
     await this.validationturnsModel.deleteMany({});
   }
+  async deleteTurn(id: string): Promise<ITurno> {
+    return this.validationturnsModel.findByIdAndDelete(id);
+  }
 }

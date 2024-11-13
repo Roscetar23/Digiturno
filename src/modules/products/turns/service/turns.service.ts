@@ -40,4 +40,12 @@ export class TurnsService {
     await this.TurnsValidationRepository.deleteAll();
     this.logger.debug('Turnos de validación eliminados');
   }
+
+  async deleteTurnRadication(id: string): Promise<ITurno> {
+    return await this.turnsRadicationRepository.deleteTurn(id);
+  }
+
+  async deleteTurnValidation(id: string): Promise<ITurno> {
+    return await this.TurnsValidationRepository.deleteTurn(id);
+  }
 }

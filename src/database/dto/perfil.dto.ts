@@ -20,4 +20,7 @@ export class CreatePerfilDto {
   @IsNotEmpty()
   @IsString()
   readonly password: string;
+
+  @IsNotEmpty()
+  role: 'radicacion' | 'validacion';
 }

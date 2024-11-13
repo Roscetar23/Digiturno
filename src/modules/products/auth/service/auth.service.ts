@@ -17,7 +17,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register({ password, email, name }: RegisterDto) {
+  async register({ password, email, name, role }: RegisterDto) {
     const user = await this.perfilService.findOneByEmail(email);
 
     if (user) {
@@ -30,6 +30,7 @@ export class AuthService {
       name,
       email,
       password: hashedPassword,
+      role,
     });
 
     return {

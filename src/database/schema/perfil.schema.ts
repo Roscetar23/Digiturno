@@ -14,6 +14,9 @@ export class Perfil {
 
   @Prop({ required: true })
   password: string;
+
+  @Prop({ enum: ['radicacion', 'validacion'], required: true })
+  role: string;
 }
 
 export const PerfilSchema = SchemaFactory.createForClass(Perfil);

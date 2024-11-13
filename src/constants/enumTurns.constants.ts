@@ -3,6 +3,7 @@ export enum TipoDocumento {
   PA = 'PA',
   TI = 'TI',
   CE = 'CE',
+  PPT = 'PPT',
 }
 
 export enum TipoConsulta {

@@ -24,4 +24,8 @@ export class RadicationTurnsRepository {
   async deleteAll(): Promise<void> {
     await this.radicationTurnsModel.deleteMany({});
   }
+
+  async deleteTurn(id: string): Promise<ITurno> {
+    return this.radicationTurnsModel.findByIdAndDelete(id);
+  }
 }
