@@ -13,6 +13,7 @@ import { CreateTurnDto } from 'src/database/dto/turns.dto';
 import { AuthGuard } from 'src/guard/auth.guard';
 
 import { SetMetadata } from '@nestjs/common';
+import { ITurno } from 'src/database/interface/turns.interface';
 
 export const Role = (role: string) => SetMetadata('role', role);
 
@@ -45,5 +46,19 @@ export class TurnsController {
   @Role('validacion')
   async deleteTurnValidation(@Param('id') id: string) {
     return this.turnsService.deleteTurnValidation(id);
+  }
+
+  @Get('lastTurnRadication')
+  @UseGuards(AuthGuard)
+  @Role('radicacion')
+  async getLastTurnRadication(): Promise<ITurno> {
+    return this.turnsService.getLastTurnRadication();
+  }
+
+  @Get('lastTurnValidation')
+  @UseGuards(AuthGuard)
+  @Role('validacion')
+  async getLastTurnValidation(): Promise<ITurno> {
+    return this.turnsService.getLastTurnValidation();
   }
 }

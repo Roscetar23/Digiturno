@@ -26,4 +26,8 @@ export class ValidationTurnsRepository {
   async deleteTurn(id: string): Promise<ITurno> {
     return this.validationturnsModel.findByIdAndDelete(id);
   }
+
+  async findLastTurn(): Promise<ITurno> {
+    return this.validationturnsModel.findOne().sort({ createdAt: -1 }).exec();
+  }
 }

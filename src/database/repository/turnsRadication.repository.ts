@@ -28,4 +28,8 @@ export class RadicationTurnsRepository {
   async deleteTurn(id: string): Promise<ITurno> {
     return this.radicationTurnsModel.findByIdAndDelete(id);
   }
+
+  async findLastTurn(): Promise<ITurno> {
+    return this.radicationTurnsModel.findOne().sort({ createdAt: -1 }).exec();
+  }
 }

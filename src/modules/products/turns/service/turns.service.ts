@@ -48,4 +48,12 @@ export class TurnsService {
   async deleteTurnValidation(id: string): Promise<ITurno> {
     return await this.TurnsValidationRepository.deleteTurn(id);
   }
+
+  async getLastTurnRadication(): Promise<ITurno> {
+    return this.turnsRadicationRepository.findLastTurn();
+  }
+
+  async getLastTurnValidation(): Promise<ITurno> {
+    return this.TurnsValidationRepository.findLastTurn();
+  }
 }
