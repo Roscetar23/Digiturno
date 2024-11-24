@@ -1,5 +1,5 @@
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, set } from 'mongoose';
 import {
   Radication,
   RadicationDocument,
@@ -31,5 +31,16 @@ export class RadicationTurnsRepository {
 
   async findLastTurn(): Promise<ITurno> {
     return this.radicationTurnsModel.findOne().sort({ createdAt: -1 }).exec();
+  }
+
+  async findAndLockNextTurn(): Promise<ITurno | null> {
+    return this.radicationTurnsModel
+      .findOneAndUpdate(
+        { status: 'pending' },
+        { $set: { status: 'in_progress' } },
+        { new: true },
+      )
+      .sort({ createdAt: 1 })
+      .exec();
   }
 }

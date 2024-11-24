@@ -16,12 +16,22 @@ export class PerfilRepository {
     return createPerfil.save();
   }
 
+  async update(id: string, updateData: Partial<PerfilI>): Promise<PerfilI> {
+    return await this.perfilModel.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+  }
+
   async findAll(): Promise<PerfilI[]> {
     return this.perfilModel.find().exec();
   }
 
   async findOneByEmail(email: string): Promise<PerfilI> {
     return this.perfilModel.findOne({ email });
+  }
+
+  async findOneById(id: string): Promise<PerfilI> {
+    return this.perfilModel.findById(id).exec();
   }
 
   async delete(id: string): Promise<PerfilI> {

@@ -61,4 +61,18 @@ export class TurnsController {
   async getLastTurnValidation(): Promise<ITurno> {
     return this.turnsService.getLastTurnValidation();
   }
+
+  @Get('nextTurnRadication')
+  @UseGuards(AuthGuard)
+  @Role('radicacion')
+  async getNextTurnRadication(): Promise<ITurno | null> {
+    return this.turnsService.getNextTurnRadication();
+  }
+
+  @Get('nextTurnValidation')
+  @UseGuards(AuthGuard)
+  @Role('validacion')
+  async getNextTurnValidation(): Promise<ITurno | null> {
+    return this.turnsService.getNextTurnValidation();
+  }
 }

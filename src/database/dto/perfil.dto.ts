@@ -22,5 +22,5 @@ export class CreatePerfilDto {
   readonly password: string;
 
   @IsNotEmpty()
-  role: 'radicacion' | 'validacion';
+  role: 'radicacion' | 'validacion' | 'admin';
 }

@@ -60,4 +60,20 @@ export class AuthService {
       email: user.email,
     };
   }
+
+  async updateRole(userId: string, role: string): Promise<{ message: string }> {
+    const user = await this.perfilService.findOneById(userId);
+
+    if (!user) {
+      throw new BadRequestException('Usuario no encontrado');
+    }
+    if (!['validacion', 'radicacion'].includes(role)) {
+      throw new BadRequestException('rol no valido');
+    }
+    await this.perfilService.updateUser(userId, { role });
+
+    return {
+      message: `Rol del usuario con ID ${userId} actualizado a ${role}`,
+    };
+  }
 }

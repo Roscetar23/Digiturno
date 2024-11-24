@@ -22,6 +22,9 @@ export class Radication {
 
   @Prop({ required: true, enum: [TipoConsulta.RADICACION] })
   tipoConsulta: TipoConsulta;
+
+  @Prop({ default: 'pending' })
+  status: string;
 }
 
 export const RadicacionTurnoSchema = SchemaFactory.createForClass(Radication);

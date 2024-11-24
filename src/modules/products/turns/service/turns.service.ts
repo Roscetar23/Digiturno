@@ -56,4 +56,12 @@ export class TurnsService {
   async getLastTurnValidation(): Promise<ITurno> {
     return this.TurnsValidationRepository.findLastTurn();
   }
+
+  async getNextTurnRadication(): Promise<ITurno | null> {
+    return this.turnsRadicationRepository.findAndLockNextTurn();
+  }
+
+  async getNextTurnValidation(): Promise<ITurno | null> {
+    return this.TurnsValidationRepository.findAndLockNextTurn();
+  }
 }

@@ -30,4 +30,15 @@ export class ValidationTurnsRepository {
   async findLastTurn(): Promise<ITurno> {
     return this.validationturnsModel.findOne().sort({ createdAt: -1 }).exec();
   }
+
+  async findAndLockNextTurn(): Promise<ITurno | null> {
+    return this.validationturnsModel
+      .findOneAndUpdate(
+        { status: 'pending' },
+        { $set: { status: 'in_progress' } },
+        { new: true },
+      )
+      .sort({ createdAt: 1 })
+      .exec();
+  }
 }

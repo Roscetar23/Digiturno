@@ -22,6 +22,9 @@ export class Validation {
 
   @Prop({ required: true, enum: [TipoConsulta.VALIDACION] })
   tipoConsulta: TipoConsulta;
+
+  @Prop({ default: 'pending' })
+  status: string;
 }
 
 export const ValidacionTurnoSchema = SchemaFactory.createForClass(Validation);

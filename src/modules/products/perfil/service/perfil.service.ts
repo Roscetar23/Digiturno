@@ -19,4 +19,11 @@ export class PerfilService {
   async findOneByEmail(email: string): Promise<PerfilI> {
     return await this.perfilRepository.findOneByEmail(email);
   }
+
+  async findOneById(id: string): Promise<PerfilI> {
+    return await this.perfilRepository.findOneById(id);
+  }
+  async updateUser(id: string, updateData: Partial<PerfilI>): Promise<PerfilI> {
+    return await this.perfilRepository.update(id, updateData);
+  }
 }

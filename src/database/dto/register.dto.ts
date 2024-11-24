@@ -22,5 +22,5 @@ export class RegisterDto {
   password: string;
 
   @IsNotEmpty()
-  role: 'radicacion' | 'validacion';
+  role: 'radicacion' | 'validacion' | 'admin';
 }

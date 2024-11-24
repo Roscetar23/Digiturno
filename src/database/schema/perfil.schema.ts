@@ -15,7 +15,7 @@ export class Perfil {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ enum: ['radicacion', 'validacion'], required: true })
+  @Prop({ enum: ['radicacion', 'validacion', 'admin'], required: true })
   role: string;
 }
 
