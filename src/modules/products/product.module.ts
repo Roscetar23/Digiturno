@@ -21,6 +21,10 @@ import {
   ValidacionTurnoSchema,
 } from 'src/database/schema/turnsValidation.schema';
 import { ScheduleModule } from '@nestjs/schedule';
+import {
+  TurnoHistorial,
+  TurnoHistorialSchema,
+} from 'src/database/schema/historialTurns.schema';
 
 @Module({
   imports: [
@@ -30,6 +34,9 @@ import { ScheduleModule } from '@nestjs/schedule';
     ]),
     MongooseModule.forFeature([
       { name: Validation.name, schema: ValidacionTurnoSchema },
+    ]),
+    MongooseModule.forFeature([
+      { name: TurnoHistorial.name, schema: TurnoHistorialSchema },
     ]),
     JwtModule.register({
       global: true,

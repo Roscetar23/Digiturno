@@ -5,11 +5,17 @@ import {
   ValidationDocument,
 } from '../schema/turnsValidation.schema';
 import { ITurno } from '../interface/turns.interface';
+import {
+  TurnoHistorial,
+  TurnoHistorialDocument,
+} from '../schema/historialTurns.schema';
 
 export class ValidationTurnsRepository {
   constructor(
     @InjectModel(Validation.name)
     private readonly validationturnsModel: Model<ValidationDocument>,
+    @InjectModel(TurnoHistorial.name)
+    private readonly turnoHistorialModel: Model<TurnoHistorialDocument>,
   ) {}
 
   async create(validationTurn: ITurno): Promise<ITurno> {
@@ -24,6 +30,22 @@ export class ValidationTurnsRepository {
     await this.validationturnsModel.deleteMany({});
   }
   async deleteTurn(id: string): Promise<ITurno> {
+    const turno = await this.validationturnsModel.findById(id);
+    if (!turno) {
+      throw new Error('Turno no encontrado');
+    }
+
+    const historialTurno = new this.turnoHistorialModel({
+      tipoDocumento: turno.tipoDocumento,
+      numeroDocumento: turno.numeroDocumento,
+      nombre: turno.nombre,
+      telefono: turno.telefono,
+      tipoConsulta: 'validacion',
+      atendidoPor: 'Validador',
+      fechaAtencion: new Date(),
+    });
+    await historialTurno.save();
+
     return this.validationturnsModel.findByIdAndDelete(id);
   }
 

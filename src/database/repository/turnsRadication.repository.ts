@@ -5,11 +5,18 @@ import {
   RadicationDocument,
 } from '../schema/turnsRadication.schema';
 import { ITurno } from '../interface/turns.interface';
+import {
+  TurnoHistorial,
+  TurnoHistorialDocument,
+} from '../schema/historialTurns.schema';
 
 export class RadicationTurnsRepository {
   constructor(
     @InjectModel(Radication.name)
     private readonly radicationTurnsModel: Model<RadicationDocument>,
+
+    @InjectModel(TurnoHistorial.name)
+    private readonly turnoHistorialModel: Model<TurnoHistorialDocument>,
   ) {}
 
   async create(turnoRadication: ITurno): Promise<ITurno> {
@@ -26,6 +33,22 @@ export class RadicationTurnsRepository {
   }
 
   async deleteTurn(id: string): Promise<ITurno> {
+    const turno = await this.radicationTurnsModel.findById(id);
+    if (!turno) {
+      throw new Error('Turno no encontrado');
+    }
+
+    const historialTurno = new this.turnoHistorialModel({
+      tipoDocumento: turno.tipoDocumento,
+      numeroDocumento: turno.numeroDocumento,
+      nombre: turno.nombre,
+      telefono: turno.telefono,
+      tipoConsulta: 'radicacion',
+      atendidoPor: 'Radicador',
+      fechaAtencion: new Date(),
+    });
+    await historialTurno.save();
+
     return this.radicationTurnsModel.findByIdAndDelete(id);
   }
 

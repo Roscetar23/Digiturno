@@ -4,6 +4,9 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ITurno } from 'src/database/interface/turns.interface';
 import { CreateTurnDto } from 'src/database/dto/turns.dto';
 import { Cron } from '@nestjs/schedule';
+import { Model } from 'mongoose';
+import { TurnoHistorial } from 'src/database/schema/historialTurns.schema';
+import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class TurnsService {
@@ -11,6 +14,8 @@ export class TurnsService {
   constructor(
     private readonly turnsRadicationRepository: RadicationTurnsRepository,
     private readonly TurnsValidationRepository: ValidationTurnsRepository,
+    @InjectModel(TurnoHistorial.name)
+    private readonly turnoHistorialModel: Model<TurnoHistorial>,
   ) {}
 
   async createTurn(createTurnDto: CreateTurnDto): Promise<ITurno> {
@@ -63,5 +68,8 @@ export class TurnsService {
 
   async getNextTurnValidation(): Promise<ITurno | null> {
     return this.TurnsValidationRepository.findAndLockNextTurn();
+  }
+  async getHistorialTurnos(): Promise<any[]> {
+    return this.turnoHistorialModel.find().exec();
   }
 }

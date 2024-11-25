@@ -75,4 +75,11 @@ export class TurnsController {
   async getNextTurnValidation(): Promise<ITurno | null> {
     return this.turnsService.getNextTurnValidation();
   }
+
+  @Get('historialTurnos')
+  @UseGuards(AuthGuard)
+  @Role('admin')
+  async getHistorialTurnos() {
+    return this.turnsService.getHistorialTurnos();
+  }
 }
